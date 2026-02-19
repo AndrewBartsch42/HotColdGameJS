@@ -18,24 +18,52 @@ const guessClick = () => {
     let message = "";
     if (isNaN(guess)) {
         message = "Not a valid number. Please enter a valid number."
-    } else if (guess < 1 || guess > 10) {
-        message = "Invalid number. Enter a number between 1 and 10.";
-    } else if (guess < randomNum) {
-        message = "Too small. Try again.";
-        tries++;
-    } else if (guess > randomNum) {
-        message = "Too big. Try again.";
-        tries++;
-    } else if (guess === randomNum) {
-        tries++;
-        const lastWord = (tries === 1) ? "try" : "tries";
-        message = `You guessed it in ${tries} ${lastWord}!`;
+        return;
+    } else if (guess < 1 || guess > 100) {
+        message = "Invalid number. Enter a number between 1 and 100.";
+        return;
     }
+    let distance = Math.abs(guess - randomNum);
+    switch(distance){
+        case (Math.abs(distance) === 0):
+            const lastWord = (tries === 1) ? "try" : "tries";
+            message = `Fire! You guessed it in ${tries} ${lastWord}!`;
+            color = 'green';
+            updatedBestScore();
+            break;
+        case (distance <= 5):
+            message = "Hot! (Within 5)";
+            color = "red";
+            break;
+        case (distance <= 10):
+            message = "Warmer (Within 10)";
+            color = "orangered";
+            break;
+        case (distance <= 20):
+            message = "Warm (Within 20)";
+            color = "orange";
+            break;
+        case (distance <= 30):
+            message = "Cold (Within 30)";
+            color = "lightblue";
+            break;
+        case (distance <= 40):
+            message = "Colder (Within 5)";
+            color = "blue";
+            break;
+        default:
+            message = "Freezing (Within 5)";
+            color = "darkblue";
+            break;
+
+    }
+    history.innerHTML += `Guess ${tries}; ${guess} - ${message}<br>`;
+    
     document.querySelector("#message").textContent = message;
 };
 
 const playAgainClick = () => {
-    randomNum = getRandomInt(10);
+    randomNum = getRandomInt();
     tries = 0;
     document.querySelector("#number").value = "";
     document.querySelector("#message").textContent = "";
@@ -44,8 +72,6 @@ const playAgainClick = () => {
 document.addEventListener("DOMContentLoaded", () => {
     playAgainClick(); // initial a new game
 
-    document.querySelector("#guess").addEventListener(
-        "click", guessClick);
-    document.querySelector("#play_again").addEventListener(
-        "click", playAgainClick);
+    document.querySelector("#guess").addEventListener("click", guessClick);
+    document.querySelector("#play_again").addEventListener("click", playAgainClick);
 });
