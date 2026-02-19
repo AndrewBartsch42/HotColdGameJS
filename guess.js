@@ -8,6 +8,7 @@ let tries = 0;
 //dom references
 const history = document.getElementById("history");
 const messageREF = document.getElementById("message");
+const bestScore = document.getElementById("best_score");
 // helper function
 const getRandomInt = (max = 100) => {
     let num = Math.random() * max;  // get a random number between 0 and max
@@ -72,7 +73,15 @@ const guessClick = () => {
     messageREF.textContent = message;
     messageREF.style.color = color;
 };
-
+function updatedBestScore(tries){
+    if (bestScore.textContent == "--"){
+        bestScore.textContent = tries;
+    } else  {
+        if (bestScore.value > tries){
+            bestScore.textContent = tries;
+        }
+    }
+}
 const playAgainClick = () => {
     randomNum = getRandomInt();
     tries = 0;
