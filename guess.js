@@ -29,13 +29,14 @@ const guessClick = () => {
         message = "Invalid number. Enter a number between 1 and 100.";
         return;
     }
+    tries += 1;
     let distance = Math.abs(guess - randomNum);
     switch(true){
         case (distance === 0):
             const lastWord = (tries === 1) ? "try" : "tries";
             message = `Fire! You guessed it in ${tries} ${lastWord}!`;
             color = 'green';
-            updatedBestScore(tries);
+            bestScore.textContent = updatedBestScore();
             break;
         case (distance <= 5):
             console.log("hot");
@@ -69,20 +70,21 @@ const guessClick = () => {
             break;
 
     }
-    tries += 1;
+
     history.innerHTML += `Guess ${tries}; ${guess} - ${message}<br>`;
     messageREF.textContent = message;
     messageREF.style.color = color;
     inputField.value = "";    
 };
-function updatedBestScore(tries){
-    if (bestScore.textContent == "--"){
-        bestScore.textContent = tries;
-    } else  {
-        if (bestScore.value > tries){
-            bestScore.textContent = tries;
-        }
+const updatedBestScore = () => {
+    let updatedScore = bestScore.textContent;
+    if (updatedScore == "--"){
+        updatedScore = tries;
     }
+    else if (updatedScore > tries){
+        updatedScore = tries;    
+    }
+    return updatedScore;
 }
 const playAgainClick = () => {
     randomNum = getRandomInt();
