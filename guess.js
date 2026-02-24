@@ -18,7 +18,7 @@ const inputField = document.getElementById("number");
 // helper function
 const getRandomInt = (max = 100) => {
     let num = Math.random() * max;  // get a random number between 0 and max
-    num = Math.ceil(num);           // round up to nearest integer
+    num = (Math.floor(num)) + 1;           // round up to nearest integer
     return num;
 };
 
