@@ -23,13 +23,13 @@ const guessClick = () => {
     let color = "";
     let message = "";
     if (isNaN(guess)) {
-        message = "Not a valid number. Please enter a valid number."
+        messageREF.textContent = "Not a valid number. Please enter a valid number."
         return;
     } else if (guess < 1 || guess > 100) {
-        message = "Invalid number. Enter a number between 1 and 100.";
+        messageREF.textContent = "Invalid number. Enter a number between 1 and 100.";
         return;
     } else if (gameOverFlag){
-        message = "Game is already complete please press the guess again button."
+        messageREF.textContent = "Game is already complete please press the guess again button.";
         return;
     }
     tries += 1;
