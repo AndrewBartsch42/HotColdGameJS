@@ -1,5 +1,10 @@
 "use strict";
-
+/*
+Author: Andrew Bartsch
+GITHUB: https://github.com/AndrewBartsch42/HotColdGameJS
+ASSIGNMENT:Chapter 5 Assignment: Hot/Cold Game
+PROGRAM NAME: HotColdGameJS
+*/
 // global variables 
 let randomNum = 0;
 let tries = 0;
