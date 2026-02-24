@@ -3,7 +3,7 @@
 // global variables 
 let randomNum = 0;
 let tries = 0;
-
+let gameOverFlag = false;
 
 //dom references
 const history = document.getElementById("history");
@@ -28,6 +28,9 @@ const guessClick = () => {
     } else if (guess < 1 || guess > 100) {
         message = "Invalid number. Enter a number between 1 and 100.";
         return;
+    } else if (gameOverFlag){
+        message = "Game is already complete please press the guess again button."
+        return;
     }
     tries += 1;
     let distance = Math.abs(guess - randomNum);
@@ -37,6 +40,7 @@ const guessClick = () => {
             message = `Fire! You guessed it in ${tries} ${lastWord}!`;
             color = 'green';
             bestScore.textContent = updatedBestScore();
+            gameOverFlag = true;
             break;
         case (distance <= 5):
             console.log("hot");
